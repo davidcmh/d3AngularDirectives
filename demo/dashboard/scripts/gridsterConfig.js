@@ -39,7 +39,7 @@
             // first column
             $scope.checkboxBox = {
                 sizeX: 2,
-                sizeY: 10,
+                sizeY: 9,
                 row: 0,
                 col: 0
             };
@@ -61,7 +61,7 @@
 
             $scope.waterfallBox = {
                 sizeX: 7,
-                sizeY: 4,
+                sizeY: 3,
                 row: 6,
                 col: 2
             };
@@ -83,18 +83,10 @@
 
             $scope.horizontalBarBox = {
                 sizeX: 3,
-                sizeY: 2,
+                sizeY: 3,
                 row: 6,
                 col: 9
             };
-
-            $scope.timeToOfferBox = {
-                sizeX: 3,
-                sizeY: 2,
-                row: 8,
-                col: 9
-            };
-
 
 
         });

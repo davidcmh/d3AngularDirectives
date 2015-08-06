@@ -12,48 +12,12 @@
                 },
                 link: function (scope, iElement, iAttrs) {
 
-                    // necessary to set margins so that axes and labels don't get cut off
-                    var margin = {
-                        top: 20,
-                        right: 50,
-                        bottom: 30,
-                        left: 50
-                    }
-
+                    // initialise svg and binds it to DOM
                     var svg = d3.select(iElement[0]).append("svg")
                         .attr("width", "100%")
                         .attr("height", "100%")
 
 
-                    var sourcesMap = {
-                        agencies: "Agencies",
-                        jobBoard: "Job Board",
-                        referrals: "Referrals"
-                    };
-
-                    // to check if month is a text, for monthIsText() function
-                    var months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-
-                    // this margin is necessary for the axes to be displayed, otherwise they will be cut off, basically translate it x, y
-                    /* this was included in the original code, but doesnt seem useful 
-                     // watch for resizing of window, and re-render d3 canvas
-                     window.onresize = function () {
-                     console.log("resizing of window");
-                     return scope.$apply();
-                     };
-
-                     scope.$watch(function () {
-                     return angular.element(window)[0].innerWidth;
-                     }, function () {
-                     console.log("window resized");
-                     return scope.render(scope.data);
-                     });
-                     */
-
-                    /*
-                     var parsedDate = 0;
-                     var parsed = false;
-                     */
                     // watch for data changes and re-render
                     scope.$watch('data', function (newVals, oldVals) {
                         return scope.render(newVals);
@@ -75,19 +39,25 @@
 
                     // define render function
                     scope.render = function (data) {
-                        // remove all previous items before render
-                        svg.selectAll("*").remove();
 
+                        // refresh canvas by removing all previous items at the start of each rendering
+                        svg.selectAll("*").remove();
 
                         // Get width and height of element
                         var elementWidth = d3.select(iElement[0])[0][0].offsetWidth;
                         var elementHeight = d3.select(iElement[0])[0][0].offsetHeight;
 
+                        // stop rendering and return immediately if DOM is not fully initialised
                         if (elementHeight == 0) {
                             return;
                         }
 
-
+                        var margin = {
+                            top: 20,
+                            right: 50,
+                            bottom: 30,
+                            left: 50
+                        }
                         var legendWidth = 80;
 
                         var chartWidth = elementWidth - margin.left - margin.right - legendWidth;
@@ -110,7 +80,9 @@
 
                         var color = d3.scale.ordinal();
                         color.range(['#5CAFAF', '#FF6262', 'black']);
-
+                        color.domain(d3.keys(data[0]).filter(function (key) {
+                            return key !== "month";
+                        }));
 
                         var xAxis = d3.svg.axis()
                             .scale(x)
@@ -133,10 +105,10 @@
                             });
 
 
-                        color.domain(d3.keys(data[0]).filter(function (key) {
-                            return key !== "month";
-                        }));
+                        // transform data
 
+                        // to check if month is a text, for monthIsText() function
+                        var months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 
                         var parseMonth = function () {
                             if (monthIsText(data[0].month)) {
@@ -160,9 +132,8 @@
                         parseMonth();
 
 
-                        // maps each source of data to a color
-                        // 'name' passed as a parameter to the map function, is passed from the domain
-                        // domain of color is defined in the line above, which passes all header names into it
+                        // create new data set
+                        // 'color' is not involved except for providing its set of domain
                         var sources = color.domain().map(function (name) {
                             return {
                                 name: name,
@@ -225,6 +196,8 @@
                             });
 
 
+
+                        // TODO: Refactor code for bisector
                         source.selectAll(".miniCircle1")
                             .data(data)
                             .enter()
@@ -290,6 +263,13 @@
                             });
 
                         // display name for each source in legend
+                        var sourcesMap = {
+                            agencies: "Agencies",
+                            jobBoard: "Job Board",
+                            referrals: "Referrals"
+                        };
+
+
                         legend.append("text")
                             .attr("x", margin.left + chartWidth + 60)
                             .attr("y", 9)
@@ -339,21 +319,6 @@
                             .attr("y", offsetForLegendRect - 15)
                             .attr("font-size", 11)
                             .text("Total");
-
-
-                        /* style
-
-                         .overlay {
-                         fill: none;
-                         pointer-events: all;
-                         }
-
-                         .focus circle {
-                         fill: none;
-                         stroke: steelblue;
-                         }
-
-                         */
 
 
                         var bisectMonth = d3.bisector(function (d) {

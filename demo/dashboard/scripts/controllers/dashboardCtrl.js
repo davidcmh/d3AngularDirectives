@@ -192,22 +192,15 @@
             ];
 
 
-            $scope.d3OnClick = function (item) {
-                alert(item.name);
-            };
-
             $scope.role = $scope.roleDataset[0].role;
             $scope.funnelData = $scope.roleDataset[0].stages;
             $scope.timeSeriesData = $scope.roleDataset[0].sources;
             $scope.costData = $scope.roleDataset[0].cost_of_hire;
             $scope.timeData = $scope.roleDataset[0].time_to_offer;
-
             $scope.stackData = $scope.timeData;
 
 
             $scope.change = function () {
-
-
                 var arr = [];
 
                 angular.forEach($scope.roleDataset, function (item) {

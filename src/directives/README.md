@@ -31,15 +31,15 @@ ii. Changes in data
 i. Refresh SVG canvas
 - Remove all items bound to SVG, using "svg.selectAll("*").remove()
 
-ii. Get container's height & width + check if container has been initialised completely (gridster layout is not initialised at the first cycle, so be careful with it)
+ii. Get container's dimensions & check if container has been initialised completely (gridster layout is not initialised at the first cycle, so be careful with it)
 
 iii. Transform data into array form to work with data().enter()
 
-iv. Set up chart's dimension & margin (based on overall container's height & width)
+iv. Set up chart 
+- Define margin & dimension based on overall container's height & width
+- Create chart by appending "g" to SVG; transform/translate if necessary
 
-v. Create chart by appending "g" to SVG; transform/translate if necessary
-
-vi. Add in chart components
+vi. Add in components by appending to chart
 - Define scales
     - x & y
         - define type of scale (ordinal/linear/time...) & range, range type (range/rangePoint/rangeBand) & domain
@@ -55,7 +55,7 @@ vi. Add in chart components
     - text labels on axis ticks can be changed manually using selectAll("text"
     - append axis label if necessary
 
-- Create bars
+- Create shapes (bar/line/arc etc)
 
-- Create bar labels
+- Create chart labels
 

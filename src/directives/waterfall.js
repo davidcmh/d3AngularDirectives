@@ -17,7 +17,7 @@
                         .append("svg")
 
 
-                    // Watch for changes in parent element size
+                    // watch for changes in parent element size
                     scope.$watch(function () {
                         return d3.select(iElement[0])[0][0].offsetHeight;
                     }, function () {
@@ -37,12 +37,10 @@
                     }, true);
 
 
-
-
                     // define render function
                     scope.render = function (data) {
 
-                        // remove all previous items before render
+                        // refresh canvas by removing all previous items at the start of each rendering
                         svg.selectAll("*").remove();
 
                         // set up overall container variables
@@ -61,8 +59,8 @@
                             chartHeight = height - margin.top - margin.bottom;
 
                         // transform data
-                        // base height to keep track of the height of empty rect below each bar
-                        // value is the actual height of each bar
+                        // base height: to keep track of the height of empty rect below each bar
+                        // value: the actual height of each bar
                         var transformData = function () {
 
                             for (var i = 0; i < data.length; i++) {
@@ -84,45 +82,49 @@
 
                         transformData();
 
+
                         // set up svg
+                        // append "g", which is used to group its children elements
+                        // then transform the "g", which will be applied to all children elements
                         var chart = svg.attr('height', height)
                             .attr('width', width)   // set up svg to be size of container
                             .append("g")
                             .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
-                        // transform/translate the 'g' child element by the margin
 
 
-                        // set up scales
+                        // set up scales and axes
+
+                        // define x-scale function, to be used to transform all x related data
+                        var padding = {inner: .05, outer: 0};
+
+                        var x = d3.scale.ordinal()
+                            .rangeBands([0, chartWidth], padding.inner, padding.outer)
+                            .domain(data.map(function (d) {
+                                return d.month;
+                            }));
+
+                        // define y-scale function, to be used to transform all y related data
                         var max = d3.max(data, function (d) {
                             return d.count;
                         });
 
-                        var padding = {inner: .05, outer: 0};
-
-                        var x = d3.scale.ordinal()
-                            .rangeBands([0, chartWidth], padding.inner, padding.outer);
-
-                        x.domain(data.map(function (d) {
-                            return d.month;
-                        }));
-
-
                         var y = d3.scale.linear()
-                            .range([chartHeight, 0]);
+                            .range([chartHeight, 0])
+                            .domain([0, max]);
 
-                        y.domain([0, max]);           // the order of this matters, if it's after the yAxis block below, this domain won't be picked up, and range will become just a percentage
 
-
+                        // define axes functions
                         var xAxis = d3.svg.axis()
                             .scale(x)
                             .orient("bottom");
 
                         var yAxis = d3.svg.axis()
-                                .scale(y)
-                                .orient("right")
-                                .tickSize(chartWidth)
+                            .scale(y)
+                            .orient("right")
+                            .tickSize(chartWidth);
 
-                            ;
+
+                        // add axes to chart
 
                         // yA is just an arbitrary var defined to store the DOM element "g" that is defined within 'chart'
                         var yA = chart.append("g")
@@ -130,19 +132,19 @@
                             .call(yAxis);
 
 
-                        yA.selectAll("g").filter(function (d) {
-                            return d;
-                        })
+                        yA.selectAll("g")
+                            .filter(function (d) {
+                                return d;
+                            })
                             .classed("minor", true);
 
-                        yA.selectAll("text")// manually change the position of text label, if not it will orient to RHS too
+                        yA.selectAll("text")// manually change the position of text label, if not it will orient to RHS
                             .attr("x", -20)
                             .attr("dy", 2.5);
 
-
                         /* to add axis label within yA group
 
-                         yA.append("text")    // for label
+                         yA.append("text")
                          .attr("transform", "rotate(-90)")
                          .attr("y", 6)
                          .attr("dy", ".71em")
@@ -156,9 +158,10 @@
                             .call(xAxis);
 
 
-
-                        chart.append("g")// added the extra append("g") before adding to bars, to group all the bars within this parent element
-                            .attr("class", "bars")// added "class" just to make the code clearer, by assigning a name to this group of child elements
+                        // append bars
+                        // append "g" and classed it to "bars" to group all bar elements together
+                        chart.append("g")
+                            .attr("class", "bars")
                             .selectAll(".bar")
                             .data(data)
                             .enter().append("rect")
@@ -178,7 +181,7 @@
                             .attr("height", function (d) {
                                 return Math.abs(d.value) / (max / chartHeight);
                             })
-                            .attr("class", function (d, i) {              // set classes to bars, depending on their values
+                            .attr("class", function (d, i) { // dynamically assign classes to bars
                                 if (i == 0 || i == data.length - 1) {
                                     return "normal";
                                 } else if (d.value >= 0) {
@@ -189,6 +192,7 @@
                             }
                         );
 
+                        // append labels
                         var labelOffset = 8;  //offset from edge of bar
                         var labelPadding = 5;
 
