@@ -1,6 +1,7 @@
 # d3AngularDirectives
-Customisable directives for a collection of d3 charts
+Customisable Angular directives for d3 charts.
 
+See src/directives for source code of each chart directive. A README.md is included within src/directives to explain the general structure of each directive. There is also a demo dashboard app illustrating the use of directives in a simple Angular app.
 
 
 ###Incorporating d3 source code
