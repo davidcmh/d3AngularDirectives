@@ -22,10 +22,9 @@
         .controller('MainCtrl', function ($scope) {
 
             $scope.gridsterOpts = {
-                //width: 'auto',
                 columns: 12,
                 margins: [10, 10],
-                outerMargin: false,
+                outerMargin: true,
                 pushing: true,
                 floating: true,
                 draggable: {
@@ -37,70 +36,65 @@
                 }
             };
 
-            // these map directly to gridsterItem options
+            // first column
             $scope.checkboxBox = {
                 sizeX: 2,
-                sizeY: 11,
+                sizeY: 10,
                 row: 0,
                 col: 0
             };
 
-            $scope.waterfallBox = {
-                sizeX: 10,
+            // second column
+            $scope.funnelBox = {
+                sizeX: 7,
                 sizeY: 3,
                 row: 0,
                 col: 2
             };
 
-            $scope.funnelBox = {
-                sizeX: 8,
+            $scope.timeSeriesBox = {
+                sizeX: 7,
                 sizeY: 3,
                 row: 3,
                 col: 2
             };
 
-            $scope.timeSeriesBox = {
-                sizeX: 8,
-                sizeY: 3,
+            $scope.waterfallBox = {
+                sizeX: 7,
+                sizeY: 4,
                 row: 6,
                 col: 2
             };
 
+            // third column
+            $scope.stackBarBox = {
+                sizeX: 3,
+                sizeY: 3,
+                row: 0,
+                col: 9
+            };
 
-            $scope.costBox = {
-                sizeX: 4,
+            $scope.donutBox = {
+                sizeX: 3,
+                sizeY: 3,
+                row: 3,
+                col: 9
+            };
+
+            $scope.horizontalBarBox = {
+                sizeX: 3,
                 sizeY: 2,
-                row: 9,
-                col: 2
+                row: 6,
+                col: 9
             };
 
             $scope.timeToOfferBox = {
-                sizeX: 4,
+                sizeX: 3,
                 sizeY: 2,
-                row: 9,
-                col: 6
-            };
-
-            $scope.diversityBox = {
-                sizeX: 2,
-                sizeY: 3,
-                row: 3,
-                col: 10
-            };
-
-            $scope.teamBox = {
-                sizeX: 2,
-                sizeY: 2,
-                row: 6,
-                col: 10
-            };
-
-            $scope.extraBox = {
-                sizeX: 2,
-                sizeY: 3,
                 row: 8,
-                col: 10
+                col: 9
             };
+
 
 
         });
