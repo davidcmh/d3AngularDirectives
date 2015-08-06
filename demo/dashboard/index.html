@@ -1,0 +1,188 @@
+<html>
+
+<head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <title>Dashboard v1.2</title>
+    <meta name="description" content=""/>
+    <meta name="viewport" content="width=device-width"/>
+
+    <link rel="stylesheet" href="../bower_components/angular-gridster/dist/angular-gridster.min.css"/>
+    <link rel="stylesheet" href="../bower_components/angular-gridster/demo/common/style.css"/>
+    <link rel="stylesheet" href="../bower_components/angular-gridster/demo/main/style.css"/>
+
+    <style type="text/css">
+        label {
+            font: 12px sans-serif;
+        }
+
+        h2 {
+            font-family: sans-serif;
+            font-size: 24px;
+        }
+
+        body {
+            font: 10px sans-serif;
+        }
+
+        .axis path {
+            display: none;
+        }
+
+        .axis line {
+            shape-rendering: crispEdges;
+            stroke: #B2B2B2;
+        }
+
+        .axis .minor line {
+            display: inline;
+            stroke: #B2B2B2;
+            stroke-dasharray: 2, 2;
+        }
+
+        .line {
+            fill: none;
+            stroke: steelblue;
+            stroke-width: 1.5px;
+        }
+
+        /* to make chart block resizable */
+
+        d3-funnel {
+            display: block;
+            height: 100%;
+        }
+
+        d3-time-series {
+            display: block;
+            height: 100%;
+        }
+
+        .overlay {
+            fill: none;
+            pointer-events: all;
+        }
+
+        .focus circle {
+            fill: none;
+            stroke: #4C4C4C;
+        }
+
+        d3-horizontal-bar {
+            display: block;
+            height: 100%;
+        }
+
+        d3-stack-bar {
+            display: block;
+            height: 100%;
+        }
+
+        d3-donut {
+            display: block;
+            height: 100%;
+        }
+
+        d3-waterfall {
+            display: block;
+            height: 100%;
+        }
+
+        .normal {
+            fill: #007BB8;
+        }
+
+        .positive {
+            fill: #93C572;
+        }
+
+        .negative {
+            fill: #E4717A;
+        }
+
+    </style>
+
+
+</head>
+
+<body ng-app="myApp">
+<div>
+    <div class="container" ng-view>
+        <div class="demo-container" ng-controller="MainCtrl">
+
+            <h2>Dashboard</h2>
+
+            <div gridster="gridsterOpts" ng-controller="DashboardCtrl">
+
+                <ul>
+                    <li gridster-item="checkboxBox">
+                        <form name="myForm">
+                            <!-- using span to add a hook to data, and include padding -->
+                            <br>
+                            <br>
+                                <span ng-repeat="data in roleDataset" style="padding-left:0px">
+                                    <label>
+                                        <input type="checkbox" ng-model="data.checkbox" ng-change="change()">
+                                        {{data.role}}
+                                    </label>
+                                    <br>
+                                </span>
+                        </form>
+
+                    </li>
+
+                    <li gridster-item="funnelBox">
+                        <d3-funnel data="funnelData" label="name" on-click="d3OnClick(item)"></d3-bars>
+                    </li>
+
+                    <li gridster-item="timeSeriesBox">
+                        <d3-time-series data="timeSeriesData"></d3-time-series>
+                    </li>
+
+                    <li gridster-item="waterfallBox">
+                        <d3-waterfall data="waterfallData"></d3-waterfall>
+                    </li>
+
+                    <li gridster-item="costBox">
+                        <d3-horizontal-bar data="costData"></d3-time-series>
+                    </li>
+
+                    <li gridster-item="timeToOfferBox">
+                        <d3-horizontal-bar data="timeData"></d3-time-series>
+                    </li>
+
+                    <li gridster-item="diversityBox">
+                        <d3-stack-bar data="stackData"></d3-time-series>
+                    </li>
+
+                    <li gridster-item="teamBox">
+                        <d3-donut data="stackData"></d3-time-series>
+                    </li>
+
+                    <li gridster-item="extraBox">
+                        <label>Team</label>
+                    </li>
+                </ul>
+            </div>
+
+        </div>
+    </div>
+
+</div>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.6/d3.min.js" charset="utf-8"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.15/angular.js"></script>
+<script src="scripts/app.js"></script>
+<script src="../bower_components/angular-gridster/src/angular-gridster.js"></script>
+<script src="scripts/gridsterConfig.js"></script>
+<script src="scripts/controllers/dashboardCtrl.js"></script>
+<script src="scripts/directives/funnel.js"></script>
+<script src="scripts/directives/timeSeries.js"></script>
+<script src="scripts/directives/horizontalBar.js"></script>
+<script src="scripts/directives/stackBar.js"></script>
+<script src="scripts/directives/donut.js"></script>
+<script src="scripts/directives/waterfall.js"></script>
+</body>
+
+</html>
