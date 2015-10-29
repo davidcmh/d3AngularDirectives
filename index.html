@@ -1,0 +1,95 @@
+<html>
+
+<head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <title>Dashboard v1.2</title>
+    <meta name="description" content=""/>
+    <meta name="viewport" content="width=device-width"/>
+
+    <link rel="stylesheet" href="bower_components/angular-gridster/dist/angular-gridster.min.css"/>
+    <link rel="stylesheet" href="dashboard/style.css"/>
+
+</head>
+
+<body ng-app="myApp">
+<div>
+    <div class="container" ng-view>
+        <div class="demo-container" ng-controller="MainCtrl">
+
+            <h2>Dashboard Demo App</h2>
+
+            <div gridster="gridsterOpts" ng-controller="DashboardCtrl">
+
+                <ul>
+                    <li gridster-item="checkboxBox">
+                        <form name="myForm">
+                            <!-- using span to add a hook to data, and include padding -->
+                            <h3>Dataset</h3>
+                            <br>
+                                <span ng-repeat="data in roleDataset">
+                                    <label>
+                                        <input type="checkbox" ng-model="data.checkbox" ng-change="change()">
+                                        {{data.role}}
+                                    </label>
+                                </span>
+                        </form>
+
+                    </li>
+
+                    <li gridster-item="funnelBox">
+                        <h3>Funnel Chart</h3>
+                        <d3-funnel data="funnelData"></d3-bars>
+
+                    </li>
+
+                    <li gridster-item="timeSeriesBox">
+                        <h3>Time Series Chart</h3>
+                        <d3-time-series data="timeSeriesData"></d3-time-series>
+                    </li>
+
+                    <li gridster-item="waterfallBox">
+                        <h3>Waterfall Chart</h3>
+                        <d3-waterfall data="waterfallData"></d3-waterfall>
+                    </li>
+
+                    <li gridster-item="horizontalBarBox">
+                        <h3>Horizontal Bar Chart</h3>
+                        <d3-horizontal-bar data="costData"></d3-time-series>
+                    </li>
+
+
+                    <li gridster-item="stackBarBox">
+                        <h3>Stack Bar Chart</h3>
+                        <d3-stack-bar data="stackData"></d3-time-series>
+                    </li>
+
+                    <li gridster-item="donutBox">
+                        <h3>Donut Chart</h3>
+                        <d3-donut data="stackData"></d3-time-series>
+                    </li>
+
+                </ul>
+            </div>
+
+        </div>
+    </div>
+
+</div>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.6/d3.min.js" charset="utf-8"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.15/angular.js"></script>
+<script src="dashboard/scripts/app.js"></script>
+<script src="bower_components/angular-gridster/src/angular-gridster.js"></script>
+<script src="dashboard/scripts/gridsterConfig.js"></script>
+<script src="dashboard/scripts/controllers/dashboardCtrl.js"></script>
+<script src="src/directives/funnel.js"></script>
+<script src="src/directives/timeSeries.js"></script>
+<script src="src/directives/horizontalBar.js"></script>
+<script src="src/directives/stackBar.js"></script>
+<script src="src/directives/donut.js"></script>
+<script src="src/directives/waterfall.js"></script>
+</body>
+
+</html>

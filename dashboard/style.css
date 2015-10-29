@@ -1,0 +1,155 @@
+body {
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    background: #fff;
+    color: #fff;
+}
+.gridster .gridster-item {
+    -webkit-box-shadow: 0 0 3px rgba(0, 0, 0, 0.3);
+    -moz-box-shadow: 0 0 3px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 0 3px rgba(0, 0, 0, 0.3);
+    color: #004756;
+    background: #ffffff;
+    padding: 10px;
+    padding-bottom:30px;
+    border-style: solid;
+    border-color: #B2B2B2;
+    border-width: 1px;
+}
+
+
+.navbar {
+    padding: 0 20px;
+}
+a:hover {
+    cursor: pointer;
+}
+input {
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    font-size: 14px;
+    padding: 4px;
+}
+.container {
+    margin: auto;
+    width: 100%;
+}
+.code-coverage {
+    color: #fff;
+    font-weight: bold;
+    float: right;
+    padding: 10px;
+}
+
+
+
+body {
+    font-size: 10px;
+    font-family: Helvetica Neue;
+    font-weight: normal;
+    color: black;
+}
+
+label {
+    display: block;
+    padding-bottom: 5px;
+    font-size: 13px;
+    color: black;
+}
+
+h2, h3 {
+    font-family: Helvetica Neue;
+    font-weight: normal;
+    color: black;
+}
+
+h2 {
+    font-size: 20px;
+    margin-bottom: 8px;
+    margin-top: 15px;
+    padding-left:15px;
+}
+
+h3 {
+    font-size: 15px;
+    margin-bottom: 0px;
+    margin-top: 5px;
+}
+
+
+.chart {
+    height:100%;
+}
+
+.axis path {
+    display: none;
+}
+
+.axis line {
+    shape-rendering: crispEdges;
+    stroke: #B2B2B2;
+}
+
+.axis .minor line {
+    display: inline;
+    stroke: #B2B2B2;
+    stroke-dasharray: 2, 2;
+}
+
+.line {
+    fill: none;
+    stroke: steelblue;
+    stroke-width: 1.5px;
+}
+
+/* to make chart block resizable */
+
+d3-funnel {
+    display: block;
+    height: 100%;
+}
+
+d3-time-series {
+    display: block;
+    height: 100%;
+}
+
+.overlay {
+    fill: none;
+    pointer-events: all;
+}
+
+.focus circle {
+    fill: none;
+    stroke: #4C4C4C;
+}
+
+d3-horizontal-bar {
+    display: block;
+    height: 100%;
+}
+
+d3-stack-bar {
+    display: block;
+    height: 100%;
+}
+
+d3-donut {
+    display: block;
+    height: 100%;
+}
+
+d3-waterfall {
+    display: block;
+    height: 100%;
+}
+
+.normal {
+    fill: #007BB8;
+}
+
+.positive {
+    fill: #93C572;
+}
+
+.negative {
+    fill: #E4717A;
+}
